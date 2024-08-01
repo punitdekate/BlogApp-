@@ -1,32 +1,45 @@
-.form {
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid black;
+  /* align-items: center; */
+  font-size: large;
+  margin: auto;
+  padding: 1rem;
+}
+/* .form {
   background-color: azure;
   padding: 2rem;
   width: 70%;
-  font-family: Arial, Helvetica, sans-serif;
+  
   margin: auto;
-  border: 2px solid greenyellow;
-}
+  border: 2px solid rgb(45, 46, 43);
+} */
 
 .row {
-  font-size: large;
-  display: block;
+  margin: 10px;
 }
 
 .input {
   width: 100%;
-  font-size: large;
+  font-size: medium;
   padding-bottom: 1rem;
+  border: 1.5px solid black;
 }
 .textArea {
   width: 100%;
+  /* font-size: medium; */
   padding-bottom: 3rem;
+  border: 1.5px solid black;
 }
 
-.inputContainer {
+/* .inputContainer {
   display: flex;
   flex-direction: column;
   font-size: larger;
-}
+} */
 .submitBtn {
   padding: 0.5rem;
   font-size: large;

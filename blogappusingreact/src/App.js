@@ -1,29 +1,20 @@
 import { useState } from "react";
-import { InputForm, BlogsList } from "./components/inputForm";
+import { InputForm } from "./components/inputForm";
+import { ForgetPassword, LoginForm } from "./components/loginForm";
 
 function App() {
-  const [blogsList, setBlogList] = useState([]);
-
-  const handleAddBlog = (blog) => {
-    setBlogList((prevBlogs) => {
-      return [blog, ...prevBlogs];
-    });
-  };
-
-  const handleRemoveBlog = (index) => {
-    setBlogList((prevBlogs) => {
-      const newBlogsList = [...prevBlogs]; // Create a new array
-      newBlogsList.splice(index, 1); // Remove the item
-      return newBlogsList; // Return the new array
-    });
-  };
+  const [isLogin, setIsLogin] = useState(true);
+  function handleForm() {
+    setIsLogin(!isLogin);
+  }
   return (
     <>
-      <InputForm handleAddBlog={handleAddBlog} />
-      <BlogsList
-        blogsList={blogsList ? blogsList : []}
-        handleRemoveBlog={handleRemoveBlog}
-      />
+      {/* <InputForm /> */}
+      {isLogin ? (
+        <LoginForm handleForm={handleForm} />
+      ) : (
+        <ForgetPassword handleForm={handleForm} />
+      )}
     </>
   );
 }
