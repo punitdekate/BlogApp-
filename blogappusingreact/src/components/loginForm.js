@@ -1,72 +1,59 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
-function userReducer(state, action) {}
-function LoginForm(props) {
-  const [userCred, setUserCred] = useState({ email: "", password: "" });
-  const [users, dispatch] = useReducer(userReducer, []);
+function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  useEffect(() => {
+    let email = localStorage.getItem("email");
+    if (email) {
+      setEmail(email);
+    }
+  }, []);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    dispatch({
-      type: "LOGIN",
-      user: {
-        email: userCred.email,
-        password: userCred.password,
-      },
-    });
-  }
-  function handleForgetPassword() {
-    props.handleForm();
-  }
+  useEffect(() => {
+    localStorage.setItem("email", email);
+  }, [email]);
+
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form>
         <h1>Login</h1>
         <input
-          value={userCred.email}
+          value={email}
           placeholder="email"
-          onChange={(e) => ({
-            email: e.target.value,
-            password: userCred.password,
-          })}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input
-          value={userCred.password}
+          value={password}
           placeholder="password"
-          onChange={(e) => ({
-            email: userCred.email,
-            password: e.target.value,
-          })}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
         <button>Submit</button>
-        <button onClick={(e) => handleForgetPassword(e)}>Forget Login</button>
       </form>
     </>
   );
 }
-function ForgetPassword(props) {
-  function handleBackToLogin(e) {
-    e.preventDefault();
-    props.handleForm();
-  }
-  function handleForgetSubmit() {}
+function ForgetPassword() {
+  const [email, setEmail] = useState("");
+  useEffect(() => {
+    let email = localStorage.getItem("email");
+    if (email) {
+      setEmail(email);
+    }
+  }, []);
   return (
     <>
-      <form onSubmit={(e) => handleForgetSubmit(e)}>
+      <form>
         <h1>Forget</h1>
         <input
-          // value={userCred.email}
+          value={email}
           placeholder="email"
-          // onChange={(e) => ({
-          //   email: e.target.value,
-          //   password: userCred.password,
-          // })}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button>Submit</button>
-        <button onClick={(e) => handleBackToLogin(e)}>Back To Login</button>
+        <button>Continue</button>
       </form>
     </>
   );

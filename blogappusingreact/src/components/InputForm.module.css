@@ -17,7 +17,10 @@
   margin: auto;
   border: 2px solid rgb(45, 46, 43);
 } */
-
+input {
+  display: block;
+  margin: 1rem;
+}
 .row {
   margin: 10px;
 }

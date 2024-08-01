@@ -3,18 +3,19 @@ import { InputForm } from "./components/inputForm";
 import { ForgetPassword, LoginForm } from "./components/loginForm";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(true);
-  function handleForm() {
-    setIsLogin(!isLogin);
-  }
+  const [isLogin, setIsLogin] = useState("Login");
+
   return (
     <>
       {/* <InputForm /> */}
-      {isLogin ? (
-        <LoginForm handleForm={handleForm} />
-      ) : (
-        <ForgetPassword handleForm={handleForm} />
-      )}
+      {isLogin === "Login" ? <LoginForm /> : <ForgetPassword />}
+      <button
+        onClick={() => {
+          isLogin === "Login" ? setIsLogin("Forget") : setIsLogin("Login");
+        }}
+      >
+        {isLogin === "Login" ? "Forget Password" : "Back To Login"}
+      </button>
     </>
   );
 }
