@@ -1,5 +1,8 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import styles from "./InputForm.module.css";
+import { db } from "../firebaseInit";
+import { collection, addDoc } from "firebase/firestore";
+
 function Row({ labelName, children }) {
   return (
     <div className={styles.row}>
@@ -38,7 +41,7 @@ function InputForm() {
     }
   }, [blogList]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(blog);
     if (!blog.title || !blog.description) {
@@ -51,14 +54,21 @@ function InputForm() {
     //   date: new Date().toISOString(),
     // });
     // setBlogList((prevBlogs) => [blog, ...prevBlogs]);
-    dispatch({
-      type: "ADD",
-      blog: {
-        title: blog.title,
-        description: blog.description,
-        date: new Date().toISOString(),
-      },
+    // dispatch({
+    //   type: "ADD",
+    //   blog: {
+    // title: blog.title,
+    // description: blog.description,
+    // date: new Date().toISOString(),
+    //   },
+    // });
+    const docRef = await addDoc(collection(db, "blogs"), {
+      title: blog.title,
+      description: blog.description,
+      date: new Date().toISOString(),
     });
+
+    console.log(docRef.id);
     setBlog({
       title: "",
       description: "",
@@ -67,13 +77,13 @@ function InputForm() {
     titleRef.current.focus();
   };
 
-  function handleRemoveBlog(index) {
-    // setBlogList(blogList.filter((val, i) => i !== index));
-    dispatch({
-      type: "REMOVE",
-      index: index,
-    });
-  }
+  // function handleRemoveBlog(index) {
+  //   // setBlogList(blogList.filter((val, i) => i !== index));
+  //   dispatch({
+  //     type: "REMOVE",
+  //     index: index,
+  //   });
+  // }
 
   return (
     <div className={styles.container}>
@@ -119,17 +129,28 @@ function InputForm() {
       </div>
       <hr></hr>
       <div>
-        {blogList.map((blogItem, index) => (
+        {/* {blogList.map((blogItem, index) => (
           <div>
             <h2>{blogItem.title}</h2>
             <p>{blogItem.description}</p>
             <p>{blogItem.date}</p>
             <button onClick={() => handleRemoveBlog(index)}>Remove</button>
           </div>
-        ))}
+        ))} */}
       </div>
     </div>
   );
 }
 
 export { InputForm };
+
+// rules_version = "2";
+
+// service cloud.firestore {
+//   match /databases/{database}/documents {
+//     match /{document=**} {
+//       allow read, write: if
+//           request.time < timestamp.date(2024, 9, 1);
+//     }
+//   }
+// }

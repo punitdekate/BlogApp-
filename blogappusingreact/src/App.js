@@ -7,15 +7,15 @@ function App() {
 
   return (
     <>
-      {/* <InputForm /> */}
-      {isLogin === "Login" ? <LoginForm /> : <ForgetPassword />}
+      <InputForm />
+      {/* {isLogin === "Login" ? <LoginForm /> : <ForgetPassword />}
       <button
         onClick={() => {
           isLogin === "Login" ? setIsLogin("Forget") : setIsLogin("Login");
         }}
       >
         {isLogin === "Login" ? "Forget Password" : "Back To Login"}
-      </button>
+      </button> */}
     </>
   );
 }
